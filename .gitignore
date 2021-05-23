@@ -1,0 +1,16 @@
+.DS_Store
+*.lst
+*.o
+*.eep
+*.lss
+*.map
+*.sym
+build
+kernel/bochslog.log
+kernel/bochs-serial.txt
+.vagrant
+.cproject
+.dep/
+.project
+.settings/
+images/disk

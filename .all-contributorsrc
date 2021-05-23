@@ -1,0 +1,42 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "SamirHodzic",
+      "name": "SamirH",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/10077663?v=4",
+      "profile": "https://github.com/SamirHodzic",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "esensar",
+      "name": "Ensar Sarajčić",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2764831?v=4",
+      "profile": "http://www.ensarsarajcic.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ahamza1",
+      "name": "Almir Hamza",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/17404743?v=4",
+      "profile": "https://github.com/ahamza1",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "klika-os",
+  "projectOwner": "klikaba",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
