@@ -6,7 +6,7 @@ int main()
 	mov ax,cs
 	mov ds,ax
 	mov es,ax
-	call prisdd sddcd
+	call prisdd sddcdqwqwqwq
    ; jmp $ 897huibin
 	pri:
 		mov ax,4567
