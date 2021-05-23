@@ -1,0 +1,101 @@
+Microsoft (R) Macro Assembler Version 6.11		    07/02/20 13:50:08
+tempfile.asm						     Page 1 - 1
+
+
+ 0000				DATAS SEGMENT
+				    ;此处输入数据段代码  
+ 0000				DATAS ENDS
+
+ 0000				STACKS SEGMENT
+				    ;此处输入堆栈段代码
+ 0000				STACKS ENDS
+
+ 0000				CODES SEGMENT
+				    ASSUME CS:CODES,DS:DATAS,SS:STACKS
+ 0000				START:
+ 0000  B8 ---- R		    MOV AX,DATAS
+ 0003  8E D8			    MOV DS,AX
+				    ;此处输入代码段代码
+ 0005  E8 0007			    call init_reg
+ 0008  E8 002F			    call keyboard
+				    
+				    
+				    
+				    
+ 000B  B4 4C			    MOV AH,4CH
+ 000D  CD 21			    INT 21H
+				    
+ 000F				init_reg:
+ 000F  BB B800				mov bx,0B800h
+ 0012  8E C3				mov es,bx
+ 0014  BB 0040				mov bx,40h
+ 0017  8E DB				mov ds,bx
+ 0019  C3				ret    
+ 001A				show:
+ 001A  51				push cx
+ 001B  52				push dx
+ 001C  1E				push ds
+ 001D  06				push es
+ 001E  56				push si
+ 001F  57				push di
+					
+ 0020  B9 0008				mov cx,8
+ 0023				testB:
+ 0023  BA 0000				mov dx,0
+ 0026  D0 E0				shl al,1
+ 0028  83 D2 30				adc dx,30h
+ 002B  26: 88 15			mov es:[di],dl
+ 002E  83 C7 02				add di,2
+ 0031  E2 F0				loop testB
+					
+					
+ 0033  5F				pop di
+ 0034  5E				pop si
+ 0035  07				pop es
+ 0036  1F				pop ds 
+ 0037  5A				pop dx
+ 0038  59				pop cx
+ 0039  C3				ret
+					
+					    
+ 003A				keyboard: 
+ 003A  BE 0017				mov si,17h
+
+ 003D				testA:		
+ 003D  BF 0050				mov di,160*0+40*2
+ 0040  8A 04				mov al,ds:[si]
+ 0042  E8 FFD5				call show	
+ 0045  EB F6				jmp testA
+ 0047  C3				ret
+					
+
+ 0048				CODES ENDS
+				    END START
+Microsoft (R) Macro Assembler Version 6.11		    07/02/20 13:50:08
+tempfile.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CODES  . . . . . . . . . . . . .	16 Bit	 0048	  Para	  Private 
+DATAS  . . . . . . . . . . . . .	16 Bit	 0000	  Para	  Private 
+STACKS . . . . . . . . . . . . .	16 Bit	 0000	  Para	  Private 
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+START  . . . . . . . . . . . . .	L Near	 0000	  CODES	
+init_reg . . . . . . . . . . . .	L Near	 000F	  CODES	
+keyboard . . . . . . . . . . . .	L Near	 003A	  CODES	
+show . . . . . . . . . . . . . .	L Near	 001A	  CODES	
+testA  . . . . . . . . . . . . .	L Near	 003D	  CODES	
+testB  . . . . . . . . . . . . .	L Near	 0023	  CODES	
+
+	   0 Warnings
+	   0 Errors

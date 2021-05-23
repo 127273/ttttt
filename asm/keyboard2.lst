@@ -1,0 +1,130 @@
+Microsoft (R) Macro Assembler Version 6.11		    07/05/20 08:24:44
+tempfile.asm						     Page 1 - 1
+
+
+ 0000				DATAS SEGMENT
+ 0000 00			    char db ?
+				    ;此处输入数据段代码  
+ 0001				DATAS ENDS
+
+ 0000				STACKS SEGMENT
+				    ;此处输入堆栈段代码
+ 0000				STACKS ENDS
+
+ 0000				CODES SEGMENT
+				    ASSUME CS:CODES,DS:DATAS,SS:STACKS
+ 0000				START:
+ 0000  B8 ---- R		    MOV AX,DATAS
+ 0003  8E D8			    MOV DS,AX
+				    ;此处输入代码段代码
+				    
+ 0005  B4 00			    mov ah,0
+
+ 0007  CD 16			    int 16h
+ 0009  A2 0000 R		    mov char,al
+				   ; mov ah,1
+ 000C  E8 000D			    call strpush
+ 000F  80 FC 0E			    cmp ah,0Eh
+ 0012  74 3E			    je  str_pop
+ 0014  3C 72			    cmp al,'r'
+ 0016  74 0A			    je red
+ 0018  3C 67			    cmp al,'g'
+ 001A  74 08			    je green
+				   
+				    
+				    
+ 001C				strpush:
+ 001C  88 00				mov ds:[si+bx],al  ;保留输入的字符ascii
+ 001E  EB 06				jmp show
+ 0020  EB DE				jmp start    
+				   
+				   
+ 0022				red :
+ 0022  D0 E4				shl ah,1
+					
+ 0024				green:
+ 0024  D0 E4				shl ah,1
+					
+ 0026				show:
+ 0026  B8 B800				mov ax,0B800h
+ 0029  8E C0			    mov es,ax
+ 002B  BB 0001			    mov bx,1
+ 002E  B9 0014			    mov cx,20;控制loop循环的次数   chang color 距离
+ 0031				    s:
+ 0031  26: 80 27 78		    	and byte ptr es:[bx],1111000b
+ 0035  26: 08 27		    	or es:[bx],ah
+ 0038  83 C3 02			    	add bx,2
+ 003B  E2 F4			    	loop s
+				    
+				  ;  mov ax,1301h
+ 003D  B0 A0			    mov al,160
+ 003F  B4 00			    mov ah,0
+ 0041  F6 E6			    mul dh
+ 0043  8B F8			    mov di,ax
+ 0045  02 D2			    add dl,dl
+ 0047  B6 00			    mov dh,0
+ 0049  03 FA			    add di,dx
+				    
+				    
+				    ;mov bx,0 
+				    ;mov di,ax
+ 004B  BA 0000			    mov dx,0000h	
+				  ;  mov byte ptr es:[di],' '
+				   ; mov ah,2
+				  ;	mov dl,char; 21h dl=要显示字符的ascii
+ 004E  CD 21			    int 21h
+ 0050  EB AE			    jmp start ;
+				  
+ 0052				str_pop:
+ 0052  B8 B800				mov ax,0B800h
+ 0055  8E C0			    mov es,ax
+ 0057  BB 0001			    mov bx,1
+ 005A  B9 00C8			 	mov cx,200;控制loop循环的次数   chang color 距离
+ 005D				   z:
+ 005D  26: 80 27 78		    	and byte ptr es:[bx],1111000b
+ 0061  26: 08 27		    	or es:[bx],ah
+ 0064  83 C3 02			    	add bx,2
+ 0067  E2 F4			    	loop z
+
+					;dec bx
+					;mov byte ptr ds:[si+bx],0
+ 0069  EB 95				jmp start     
+ 006B  B4 4C			    MOV AH,4CH
+ 006D  CD 21			    INT 21H
+ 006F				CODES ENDS
+				    END START
+
+
+
+
+Microsoft (R) Macro Assembler Version 6.11		    07/05/20 08:24:44
+tempfile.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+CODES  . . . . . . . . . . . . .	16 Bit	 006F	  Para	  Private 
+DATAS  . . . . . . . . . . . . .	16 Bit	 0001	  Para	  Private 
+STACKS . . . . . . . . . . . . .	16 Bit	 0000	  Para	  Private 
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+START  . . . . . . . . . . . . .	L Near	 0000	  CODES	
+char . . . . . . . . . . . . . .	Byte	 0000	  DATAS	
+green  . . . . . . . . . . . . .	L Near	 0024	  CODES	
+red  . . . . . . . . . . . . . .	L Near	 0022	  CODES	
+show . . . . . . . . . . . . . .	L Near	 0026	  CODES	
+str_pop  . . . . . . . . . . . .	L Near	 0052	  CODES	
+strpush  . . . . . . . . . . . .	L Near	 001C	  CODES	
+s  . . . . . . . . . . . . . . .	L Near	 0031	  CODES	
+z  . . . . . . . . . . . . . . .	L Near	 005D	  CODES	
+
+	   0 Warnings
+	   0 Errors
