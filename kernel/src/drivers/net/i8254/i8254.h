@@ -184,6 +184,7 @@ namespace myos
 
                 uint32_t GetSpeed();
                 Driver* GetDriver();
+                NetDataHandlerBaseClass* GetHandlerBaseClass();
             };
 
     } // namespace drivers

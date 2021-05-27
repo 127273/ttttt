@@ -7,8 +7,8 @@
 #include <mmu_heap.h>
 #include <drivers/net/net.h>
 
-//65535
-#define MAX_PORTS 0xff
+
+#define MAX_PORTS 0x514
 namespace myos
 {
     namespace net

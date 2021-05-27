@@ -5,7 +5,7 @@
 #include <types.h>
 //#include <pci.h>
 /*  这个把后面进程的内存空间抢了*/
-#define MAX_DRIVERS  0x000f  //256
+#define MAX_DRIVERS  0x00ff  //256
 
 namespace myos
 {

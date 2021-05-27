@@ -12,7 +12,7 @@ using namespace myos::drivers;
 AddressResolutionProtocol::AddressResolutionProtocol(EtherFrameProvider *backend)
     : EtherFrameHandler(backend, 0x806)
 {
-    numCacheEntries = 0; //1
+    numCacheEntries = 1; //1
     IPcache[0] = 0x020da8c0;
     MACcache[0] = 0x005056e33d78;
     sendnum = SendArpNum;
@@ -54,6 +54,15 @@ bool AddressResolutionProtocol::OnEtherFrameReceived(uint8_t *etherframePayload,
                     IPcache[numCacheEntries] = arp->srcIP;
                     MACcache[numCacheEntries] = arp->srcMAC;
                     numCacheEntries++;
+                         int *addr = (int *)KERNEL_VIDEO_MEMORY;
+                    	for(int i = 0 ;i<1440*20;i++)
+                        {
+                            *((char *)addr+0)=(char)0xff;
+                            *((char *)addr+1)=(char)0x00;
+                            *((char *)addr+2)=(char)0x00;
+                            *((char *)addr+3)=(char)0x00;	
+                            addr +=1;	
+                        }
                     //printk("\n    srcadnsndddddddddddddddddddddddddddd");
                 }
                 break;

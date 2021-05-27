@@ -288,6 +288,7 @@ Intel_82545::Intel_82545(uintptr_t BaseAddress, uint8_t interruptLine, Interrupt
       memhandle(BaseAddress)
 {
 
+   
     this->interruptLine = interruptLine;
     //   DEBUG("dev, %d", uint8_t(interruptLine + 0x20));
     //while(1);
@@ -388,6 +389,7 @@ Intel_82545::Intel_82545(uintptr_t BaseAddress, uint8_t interruptLine, Interrupt
 
     net_i825xx_tx_init();
     net_i825xx_rx_init();
+ 
 }
 
 Intel_82545::~Intel_82545()
@@ -510,7 +512,7 @@ void Intel_82545::HandleInterrupt(isr_ctx_t *regs)
         
         uint32_t icr = memhandle.inl(E1000_REG_ICR);
         DEBUG("intel82545 handleinterrupt icr %x\n", icr);
-     
+        printk("intel82545 handleinterrupt\n");
         // LINK STATUS CHANGE
         if (icr & (1 << 2))
         {
@@ -562,8 +564,13 @@ void Intel_82545::HandleInterrupt(isr_ctx_t *regs)
         {
             //  printfHex(buffer[i]);
             DEBUG("%x ", buffer[i]);
+            // int x = (int)buffer[i] % 16;
+            // int y = (int)buffer[i] / 16;
+            //   putchar((char)y);
+            // putchar(x);
+          
         }
-
+        //printk("asiasns");
         uint32_t Head = memhandle.inl(E1000_REG_TDH);
         e1000->tx_tail = memhandle.inl(E1000_REG_TDT);
         uint32_t Next = (e1000->tx_tail + 1) % NUM_RX_DESCRIPTORS;
@@ -600,6 +607,15 @@ void Intel_82545::HandleInterrupt(isr_ctx_t *regs)
     {
         //	while((e1000->rx_desc[Tail]->Status & E1000_RX_STATUS_DONE) )
         //	{
+               int *addr = (int *)KERNEL_VIDEO_MEMORY;
+                    	for(int i = 0 ;i<1440*20;i++)
+                        {
+                            *((char *)addr+0)=(char)0xff;
+                            *((char *)addr+1)=(char)0x00;
+                            *((char *)addr+2)=(char)0x00;
+                            *((char *)addr+3)=(char)0x00;	
+                            addr +=1;	
+                        }
         DEBUG("intel_82545 RECV: ");
         bool drop = false;
         uint32_t Head = memhandle.inl(E1000_REG_RDH);
@@ -644,6 +660,7 @@ void Intel_82545::HandleInterrupt(isr_ctx_t *regs)
 
     void Intel_82545::SetIPAddress(uint32_t ip)
     {
+        color_kdebug(3, "set \n");
         intel_82545_addr.logicalAddress = ip;
     }
 
@@ -708,4 +725,9 @@ void Intel_82545::HandleInterrupt(isr_ctx_t *regs)
         // set the transmit control register (padshortpackets)
         memhandle.outl(E1000_REG_TCTL, (TCTL_EN | TCTL_PSP));
         return 0;
-    }
+}
+
+NetDataHandlerBaseClass* Intel_82545::GetHandlerBaseClass()
+{
+    return (NetDataHandlerBaseClass*)(this);
+}

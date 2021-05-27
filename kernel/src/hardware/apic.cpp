@@ -90,7 +90,7 @@ namespace APIC{
         void Enable(){
             WriteBase(ReadBase() | (1UL << 11));
                                                             //0x1ff
-            Write(LOCAL_APIC_SIVR, Read(LOCAL_APIC_SIVR) |  0x100  /* Enable APIC, Vector 255*/);
+            Write(LOCAL_APIC_SIVR, Read(LOCAL_APIC_SIVR) |  0x1ff  /* Enable APIC, Vector 255*/);
         }
 
         void SpuriousInterruptHandler(void*, RegisterContext* r){
@@ -104,7 +104,7 @@ namespace APIC{
             DEBUG("[APIC] Local APIC Base %x (%x)\n", base, virtualBase);
         
 
-          //  register_interrupt_handler(0xff, (isr_t)SpuriousInterruptHandler);
+            register_interrupt_handler(0xff, (isr_t)SpuriousInterruptHandler);
             Enable();
 
 
@@ -254,7 +254,7 @@ namespace APIC{
         IO::Initialize();
 
         asm   volatile ("sti");
-        
+        DEBUG("ober");
         return 0;
     }
 

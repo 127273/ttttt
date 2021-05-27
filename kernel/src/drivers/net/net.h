@@ -2,6 +2,7 @@
 #define NET_H
 
 #include <types.h>
+
 namespace myos
 {
     namespace drivers

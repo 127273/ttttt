@@ -56,7 +56,7 @@ void TransmissionControlProtocolSocket::Disconnect()
 TransmissionControlProtocolProvider::TransmissionControlProtocolProvider(InternetProtocolProvider *backend)
     : InternetProtocolHandler(backend, 0x06)
 {
-    for (int i = 0; i < 65535; i++)
+    for (int i = 0; i < MAX_PORTS; i++)
         sockets[i] = 0;
     numSockets = 0;
     freePort = 1024;

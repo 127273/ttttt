@@ -105,7 +105,7 @@ namespace myos
         class TransmissionControlProtocolProvider : InternetProtocolHandler
         {
         protected:
-            TransmissionControlProtocolSocket *sockets[65535];
+            TransmissionControlProtocolSocket *sockets[MAX_PORTS];
             uint16_t numSockets;
             uint16_t freePort;
 

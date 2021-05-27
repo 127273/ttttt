@@ -8,7 +8,7 @@ code segment
 start:
     mov cx, 100
     mov bx, 0
-
+    jmp nextr 
 next:
     add bx, cx
     loop next

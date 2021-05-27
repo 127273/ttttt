@@ -2,7 +2,7 @@ extern long_mode_start
 
 %define KERNEL_VMA          0xFFFF800000000000
 %define PAGE_SIZE           4096
-%define KERNEL_STACK_SIZE   PAGE_SIZE*2
+%define KERNEL_STACK_SIZE   PAGE_SIZE * 16 * 4  ;256kB
 
 section .text
 bits 32
@@ -187,6 +187,7 @@ GDT64Pointer64:                    ; The GDT-pointer.
     dw $ - gdt64 - 1             ; Limit.
     dq gdt64                     ; Base.
 
+;用来存放未被初始化的局部变量 如果值过小 就会发生数据错误 cpu执行出错
 section .bss
 align 4
 kernel_stack_bottom:

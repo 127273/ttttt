@@ -81,8 +81,8 @@ static void init_paging_user() {
    for (uint64_t i = 1; i < 8; i++)
    {
   //   //
-     pdpe_user[i].all = ((i - 1) * PAGE_SIZE_1G) | PAGE_PRESENT_CPL3; // Presetn + Write + Large (1GB)
-   }
+     pdpe_user[i].all = ((i) * PAGE_SIZE_1G) | PAGE_PRESENT_CPL3; // Presetn + Write + Large (1GB)
+   } pdpe_user[3].all = 0;
  //pdpe 0 is 2M memory total 1G
       for (uint64_t i = 0; i < 512; i++)
      {

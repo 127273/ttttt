@@ -54,7 +54,7 @@ namespace myos
         class UserDatagramProtocolProvider : InternetProtocolHandler
         {
         protected:
-            UserDatagramProtocolSocket *sockets[65535];
+            UserDatagramProtocolSocket *sockets[MAX_PORTS];
             uint16_t numSockets;
             uint16_t freePort;
 

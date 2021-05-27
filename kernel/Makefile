@@ -69,8 +69,8 @@ run: $(iso)
 	-device intel-hda -smp 2 -cpu core2duo  -name "Alice World Is Here" -usb \
 	-drive if=none,format=raw,id=disk1,file=$(usb_image) \
 	-device nec-usb-xhci,id=usb \
-	-device usb-storage,bus=usb.0,drive=disk1 \
-	-netdev user,id=net0 -device e1000-82545em,netdev=net0,mac=DE:AD:69:BE:EF:42 -serial stdio #  -monitor stdio #  
+	-device usb-storage,bus=usb.0,drive=disk1  \
+	-netdev user,id=net0,  -device e1000-82545em,netdev=net0,mac=DE:AD:69:BE:EF:42 -serial stdio #  -monitor stdio #  
 #-enable-kvm  -cpu host
 #qemu-system-x86_64 -net nic,model=?
 run-bocsh: $(iso)

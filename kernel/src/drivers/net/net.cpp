@@ -39,7 +39,7 @@ uintptr_t NetDataHandlerBaseClass::GetIPAddress()
 
 void NetDataHandlerBaseClass::SetIPAddress(uint32_t ip)
 {
-
+    
 }
 
 NetDataHandlerBaseClass *GetNetCard(myos::drivers::DriverManager *drvManager)

@@ -22,7 +22,7 @@ enum{
 
 #define KERNEL_USER_VIEW_START_MEMORY 0xFFFFE00000000000
 #define KERNEL_USER_VIEW_VMA ((char*)KERNEL_USER_VIEW_START_MEMORY)
-
+//why is this address for us
 #define KERNEL_VIDEO_MEMORY ((unsigned char*)0xFFFFC00000000000)
 
 #define TO_VMA_U64(ptr) ((uint64_t)ptr + (uint64_t)KERNEL_START_MEMORY)
@@ -43,7 +43,8 @@ void color_kdebug(int colorFont, const char *fmt, ...) ;
 #define __UNUSED__ __attribute__((unused))
 
 #define DEBUG _kdebug
-
+void printk(char* str);
+void putchar(uint8_t key);
 static	uintptr_t GetIOMapping(uintptr_t addr)
 {
     if(addr > 0xffffffff){ // Typically most MMIO will not reside > 4GB, but check just in case
