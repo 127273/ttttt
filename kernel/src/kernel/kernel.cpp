@@ -361,7 +361,7 @@ extern "C" void kmain(unsigned long magic __UNUSED__, multiboot_info_t* mbi_phys
 //  TransmissionControlProtocolProvider tcp(&ipv4);
     color_kdebug(KPRN_ERR, "udp start\n");
   arp.BroadcastMACAddress(gip_be);
-  while(1);
+  //while(1);
   color_kdebug(KPRN_ERR, "udp start\n");
   PrintfUDPHandler udphandler;
   UserDatagramProtocolSocket* udpsocket = udp.Connect(gip_be, 1234);
