@@ -60,11 +60,11 @@ namespace ACPI{
 
 		int _index = 0;
 
-		if(memcmp("DSDT", signature, 4) == 0) return (void*)GetIOMapping(fadt->dsdt);
+		if(memcmp("DSDT", signature, 4) == 0) return (void*)TO_VMA_U64(fadt->dsdt);
 	
 		for (int i = 0; i < entries; i++)
 		{
-			acpi_header_t* h = (acpi_header_t*)GetIOMapping(getEntry(i));
+			acpi_header_t* h = (acpi_header_t*)TO_VMA_U64(getEntry(i));
 			if (memcmp(h->signature, signature, 4) == 0 && _index++ == index)
 				return h;
 		}
@@ -110,16 +110,16 @@ namespace ACPI{
 		}
 
 		for(int i = 0x80000; i <= 0x9FFFF; i += 16){ // Search further for RSDP
-			if(memcmp((void*)GetIOMapping(i),signature,8) == 0){
-				desc = ((acpi_xsdp_t*)GetIOMapping(i));
+			if(memcmp((void*)TO_VMA_U64(i),signature,8) == 0){
+				desc = ((acpi_xsdp_t*)TO_VMA_U64(i));
 
 				goto success;
 			}
 		}
 
 		for(int i = 0xE0000; i <= 0xFFFFF; i += 16){ // Search further for RSDP
-			if(memcmp((void*)GetIOMapping(i),signature,8) == 0){
-				desc = ((acpi_xsdp_t*)GetIOMapping(i));
+			if(memcmp((void*)TO_VMA_U64(i),signature,8) == 0){
+				desc = ((acpi_xsdp_t*)TO_VMA_U64(i));
 
 				goto success;
 			}
@@ -136,10 +136,10 @@ namespace ACPI{
 	//	isos = new List<apic_iso_t*>();
 
 		if(desc->revision == 2){
-			rsdtHeader = ((acpi_rsdt_t*)GetIOMapping(desc->xsdt));
-			xsdtHeader = ((acpi_xsdt_t*)GetIOMapping(desc->xsdt));
+			rsdtHeader = ((acpi_rsdt_t*)TO_VMA_U64(desc->xsdt));
+			xsdtHeader = ((acpi_xsdt_t*)TO_VMA_U64(desc->xsdt));
 		} else{
-			rsdtHeader = ((acpi_rsdt_t*)GetIOMapping(desc->rsdt));
+			rsdtHeader = ((acpi_rsdt_t*)TO_VMA_U64(desc->rsdt));
 		}
 
 		memcpy(oem,rsdtHeader->header.oem,6);

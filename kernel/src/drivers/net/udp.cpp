@@ -92,12 +92,12 @@ bool UserDatagramProtocolProvider::OnInternetProtocolReceived(uint32_t srcIP_BE,
 
 UserDatagramProtocolSocket *UserDatagramProtocolProvider::Connect(uint32_t ip, uint16_t port)
 {
-    UserDatagramProtocolSocket *socket = (UserDatagramProtocolSocket *)malloc(sizeof(UserDatagramProtocolSocket));
+    UserDatagramProtocolSocket *socket =  new (UserDatagramProtocolSocket ) (UserDatagramProtocolSocket(this));
 
     if (socket != 0)
     {
         
-        new (UserDatagramProtocolSocket ) (UserDatagramProtocolSocket(this));
+       
 
         socket->remotePort = port;
         socket->remoteIP = ip;
@@ -151,6 +151,7 @@ void UserDatagramProtocolProvider::Send(UserDatagramProtocolSocket *socket, uint
 
     UserDatagramProtocolHeader *msg = (UserDatagramProtocolHeader *)buffer;
 
+    color_kdebug(KPRN_ERR, "udp send\t");
     msg->srcPort = socket->localPort;
     msg->dstPort = socket->remotePort;
     DEBUG("src %x, dst %x", msg->srcPort, msg->dstPort);

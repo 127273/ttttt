@@ -45,14 +45,7 @@ void color_kdebug(int colorFont, const char *fmt, ...) ;
 #define DEBUG _kdebug
 void printk(char* str);
 void putchar(uint8_t key);
-static	uintptr_t GetIOMapping(uintptr_t addr)
-{
-    if(addr > 0xffffffff){ // Typically most MMIO will not reside > 4GB, but check just in case
-    DEBUG("MMIO >4GB current unsupported");
-        return 0xffffffff;
-    }
-    return  TO_VMA_U64(addr);
-}
+
 
 static void wait_ms(int i)
 {
