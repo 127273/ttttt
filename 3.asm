@@ -2,7 +2,32 @@ data segment
     A db 1,3,5
     len equ $ - A
 data ends
+class Mintor
+{
+    int serverID;
+    int IDkey;
+    String serverAddress;
+    long MAC;
+    int type;
+    double value;
+    double valueRe;
+    Mintor(int type)
+    {
+        this.type = type;
+    }
+};
 
+class MintorManager
+{
+    Mintor mintor1[20];
+    Mintor mintor2[20];
+    Mintor mintor3[20];
+
+    long GetMAC(int type, int pos)
+    {
+        return 
+    }
+};
 code segment 
     ASSUME CS:CODE, DS:DATA
 start:
