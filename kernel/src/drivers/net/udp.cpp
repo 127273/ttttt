@@ -114,11 +114,11 @@ UserDatagramProtocolSocket *UserDatagramProtocolProvider::Connect(uint32_t ip, u
 
 UserDatagramProtocolSocket *UserDatagramProtocolProvider::Listen(uint16_t port)
 {
-    UserDatagramProtocolSocket *socket = (UserDatagramProtocolSocket *)malloc(sizeof(UserDatagramProtocolSocket));
+    UserDatagramProtocolSocket *socket =  new (UserDatagramProtocolSocket) (UserDatagramProtocolSocket(this));
 
     if (socket != 0)
     {
-        new (UserDatagramProtocolSocket) (UserDatagramProtocolSocket(this));
+       
 
         socket->listening = true;
         socket->localPort = port;
